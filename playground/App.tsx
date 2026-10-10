@@ -7,6 +7,7 @@ import { EnergyChart } from './sections/EnergyChart'
 import { IntegratorRace } from './sections/IntegratorRace'
 import { LiveEquation } from './sections/LiveEquation'
 import { MassSpring } from './sections/MassSpring'
+import { Orbit } from './sections/Orbit'
 import { Pendulum } from './sections/Pendulum'
 import { PhasePlot } from './sections/PhasePlot'
 import { PositionPlot } from './sections/PositionPlot'
@@ -55,6 +56,7 @@ export function App() {
           <IntegratorRace config={config} />
           <Pendulum />
           <Projectile />
+          <Orbit />
         </main>
       </div>
     </div>

@@ -50,6 +50,8 @@ sliders (stiffness, damping, mass, starting velocity, integrator) drives every s
    with measured and textbook periods.
 9. **Projectile motion**: drag to aim and fire, with optional air drag compared against the
    textbook parabola.
+10. **Orbits and gravity**: throw a planet around a star, with Kepler's equal-area wedges, orbit
+    shape and period, and energy drift for leapfrog versus explicit Euler.
 
 Sections 2–5 watch one shared simulation ([`playground/physics.ts`](playground/physics.ts)).
 

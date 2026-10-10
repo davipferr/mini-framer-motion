@@ -469,6 +469,9 @@ select {
 .canvas-projectile {
   height: 420px;
 }
+.canvas-orbit {
+  height: 480px;
+}
 .formula-row {
   display: flex;
   flex-wrap: wrap;

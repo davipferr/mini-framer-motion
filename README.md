@@ -46,6 +46,8 @@ sliders (stiffness, damping, mass, starting velocity, integrator) drives every s
 6. **Three kinds of damping**: underdamped, critically damped and overdamped springs released together.
 7. **Integrator race**: semi-implicit Euler, RK4 and explicit Euler against the exact answer as the
    time step grows.
+8. **Pendulum**: a draggable pendulum next to its small-angle approximation (which is a spring),
+   with measured and textbook periods.
 
 Sections 2–5 watch one shared simulation ([`playground/physics.ts`](playground/physics.ts)).
 

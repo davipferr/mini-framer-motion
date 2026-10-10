@@ -7,6 +7,7 @@ import { EnergyChart } from './sections/EnergyChart'
 import { IntegratorRace } from './sections/IntegratorRace'
 import { LiveEquation } from './sections/LiveEquation'
 import { MassSpring } from './sections/MassSpring'
+import { Pendulum } from './sections/Pendulum'
 import { PhasePlot } from './sections/PhasePlot'
 import { PositionPlot } from './sections/PositionPlot'
 
@@ -51,6 +52,7 @@ export function App() {
           <PhasePlot sim={sim} velocity={params.velocity} />
           <DampingComparison config={config} />
           <IntegratorRace config={config} />
+          <Pendulum />
         </main>
       </div>
     </div>

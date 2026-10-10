@@ -443,6 +443,27 @@ select {
   background: var(--target);
 }
 
+/* ---- Pendulum ------------------------------------------------------ */
+
+.pendulum-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 280px) minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+.pendulum-controls {
+  display: grid;
+  gap: 12px;
+}
+.canvas-pendulum {
+  height: 380px;
+}
+@media (max-width: 1100px) {
+  .pendulum-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 /* ---- Integrator table ----------------------------------------------- */
 
 .errors {

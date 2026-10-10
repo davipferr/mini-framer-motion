@@ -1,0 +1,469 @@
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --text: #16181d;
+  --muted: #6b7280;
+  --border: #e3e5ea;
+  --grid: #eceef2;
+  --chip: #eef1f6;
+  --accent: #4c6ef5;
+  --accent-text: #ffffff;
+  --target: #9ca3af;
+
+  /* Data colours, used by the canvases through getComputedStyle. */
+  --exact: #f08c00;
+  --live: #e64980;
+  --force: #e8590c;
+  --velocity: #4c6ef5;
+  --spring-energy: #12b886;
+  --motion-energy: #e64980;
+  --under: #e64980;
+  --critical: #4c6ef5;
+  --over: #f08c00;
+  --rk4: #12b886;
+  --explicit: #e03131;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1115;
+    --surface: #171a21;
+    --text: #e8eaef;
+    --muted: #8b93a3;
+    --border: #2a2f3a;
+    --grid: #222733;
+    --chip: #222733;
+    --accent: #748ffc;
+    --accent-text: #0f1115;
+    --target: #5c6370;
+
+    --exact: #ffc048;
+    --live: #f783ac;
+    --force: #ff922b;
+    --velocity: #748ffc;
+    --spring-energy: #38d9a9;
+    --motion-energy: #f783ac;
+    --under: #f783ac;
+    --critical: #748ffc;
+    --over: #ffc048;
+    --rk4: #38d9a9;
+    --explicit: #ff6b6b;
+    color-scheme: dark;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.55 ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+h1,
+h2 {
+  margin: 0;
+  line-height: 1.2;
+}
+h1 {
+  font-size: 30px;
+}
+h2 {
+  font-size: 19px;
+}
+p {
+  margin: 4px 0 0;
+}
+var {
+  font-family: 'Cambria Math', 'STIX Two Math', Georgia, serif;
+  font-style: italic;
+}
+code,
+.mono {
+  font: 13px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+code {
+  background: var(--chip);
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+.muted,
+.hint,
+.page-header p,
+.section-head p {
+  color: var(--muted);
+}
+.hint,
+.small {
+  font-size: 13px;
+}
+
+/* ---- Page layout ---------------------------------------------------- */
+
+.page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 32px 16px 64px;
+}
+.page-header {
+  margin-bottom: 24px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+.controls {
+  position: sticky;
+  top: 16px;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+}
+.sections {
+  display: grid;
+  gap: 24px;
+  min-width: 0;
+}
+
+@media (max-width: 860px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .controls {
+    position: static;
+    max-height: none;
+  }
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+}
+
+.section-head {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.step {
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--chip);
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ---- Controls ------------------------------------------------------- */
+
+button {
+  font: inherit;
+  color: var(--text);
+  background: var(--chip);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 14px;
+  cursor: pointer;
+}
+button:hover {
+  filter: brightness(0.96);
+}
+button.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-text);
+}
+button.chip {
+  border-radius: 999px;
+  padding: 3px 12px;
+  font-size: 13px;
+}
+button.link {
+  background: none;
+  border: none;
+  padding: 0 2px;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.slider {
+  display: grid;
+  gap: 4px;
+}
+.slider-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 14px;
+}
+.slider output {
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+.slider input {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+.select,
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+.checkbox input {
+  accent-color: var(--accent);
+}
+select {
+  font: inherit;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 3px 6px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 0;
+}
+.stats div {
+  background: var(--chip);
+  border-radius: 8px;
+  padding: 8px 10px;
+  min-width: 0;
+}
+.stats .wide {
+  grid-column: 1 / -1;
+}
+.stats dt {
+  font-size: 11.5px;
+  line-height: 1.3;
+  color: var(--muted);
+}
+.stats dd {
+  margin: 2px 0 0;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.kind-underdamped {
+  color: var(--under);
+}
+.kind-critically {
+  color: var(--critical);
+}
+.kind-overdamped {
+  color: var(--over);
+}
+
+/* ---- Canvases ------------------------------------------------------- */
+
+.canvas {
+  width: 100%;
+  height: 300px;
+  display: block;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.canvas-short {
+  height: 220px;
+}
+.canvas-tall {
+  height: 380px;
+}
+.canvas-square {
+  height: 360px;
+}
+.draggable {
+  cursor: grab;
+  touch-action: none;
+}
+.draggable:active {
+  cursor: grabbing;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 16px;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+.swatch {
+  display: inline-block;
+  width: 14px;
+  height: 4px;
+  border-radius: 2px;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+.callout {
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: var(--chip);
+  font-size: 14px;
+}
+
+/* ---- Position plot ball -------------------------------------------- */
+
+.track {
+  height: 48px;
+  border-radius: 999px;
+  background: var(--chip);
+  padding: 6px;
+}
+.ball {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--live);
+  will-change: transform;
+}
+
+/* ---- Live equation -------------------------------------------------- */
+
+.equation {
+  display: grid;
+  gap: 6px;
+  padding: 16px;
+  border-radius: 10px;
+  background: var(--chip);
+  font-size: 18px;
+  overflow-x: auto;
+}
+.eq-row {
+  display: grid;
+  grid-template-columns: 28px 22px minmax(150px, max-content) 22px minmax(150px, max-content);
+  align-items: baseline;
+  white-space: nowrap;
+}
+.eq-row b {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.eq-accel {
+  grid-template-columns: 28px 22px auto;
+  margin-top: 6px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+.eq-term.spring {
+  color: var(--spring-energy);
+}
+.eq-term.damping {
+  color: var(--force);
+}
+.net {
+  color: var(--accent);
+}
+
+.bars {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 13px;
+}
+.bar-row {
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+}
+.bar-label {
+  color: var(--muted);
+  white-space: pre;
+}
+.bar-track {
+  position: relative;
+  height: 14px;
+  border-radius: 4px;
+  background: var(--surface);
+  overflow: hidden;
+}
+.bar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  border-radius: 3px;
+}
+.bar-spring {
+  background: var(--spring-energy);
+}
+.bar-damping {
+  background: var(--force);
+}
+.bar-net {
+  background: var(--accent);
+}
+.bar-zero {
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  left: 50%;
+  width: 1px;
+  background: var(--target);
+}
+
+/* ---- Integrator table ----------------------------------------------- */
+
+.errors {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+.errors th {
+  text-align: left;
+  font-weight: 500;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+  padding: 6px 8px;
+}
+.errors td {
+  border-bottom: 1px solid var(--border);
+  padding: 6px 8px;
+}
+.errors td:last-child,
+.errors th:last-child {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}

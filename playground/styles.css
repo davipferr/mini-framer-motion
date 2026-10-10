@@ -472,6 +472,12 @@ select {
 .canvas-orbit {
   height: 480px;
 }
+.canvas-waves {
+  height: 440px;
+}
+.canvas-probe {
+  height: 170px;
+}
 .formula-row {
   display: flex;
   flex-wrap: wrap;

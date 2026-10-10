@@ -52,6 +52,8 @@ sliders (stiffness, damping, mass, starting velocity, integrator) drives every s
    textbook parabola.
 10. **Orbits and gravity**: throw a planet around a star, with Kepler's equal-area wedges, orbit
     shape and period, and energy drift for leapfrog versus explicit Euler.
+11. **Wave interference**: two draggable sources on a live wave field, a probe that plots both
+    arriving waves and their sum, and a time-averaged view showing where they cancel.
 
 Sections 2–5 watch one shared simulation ([`playground/physics.ts`](playground/physics.ts)).
 

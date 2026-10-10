@@ -12,6 +12,7 @@ import { Pendulum } from './sections/Pendulum'
 import { PhasePlot } from './sections/PhasePlot'
 import { PositionPlot } from './sections/PositionPlot'
 import { Projectile } from './sections/Projectile'
+import { Waves } from './sections/Waves'
 
 export function App() {
   const [params, setParams] = useState<Params>(defaultParams)
@@ -57,6 +58,7 @@ export function App() {
           <Pendulum />
           <Projectile />
           <Orbit />
+          <Waves />
         </main>
       </div>
     </div>

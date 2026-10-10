@@ -48,6 +48,8 @@ sliders (stiffness, damping, mass, starting velocity, integrator) drives every s
    time step grows.
 8. **Pendulum**: a draggable pendulum next to its small-angle approximation (which is a spring),
    with measured and textbook periods.
+9. **Projectile motion**: drag to aim and fire, with optional air drag compared against the
+   textbook parabola.
 
 Sections 2–5 watch one shared simulation ([`playground/physics.ts`](playground/physics.ts)).
 

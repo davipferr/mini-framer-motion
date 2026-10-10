@@ -458,7 +458,26 @@ select {
 .canvas-pendulum {
   height: 380px;
 }
+/* ---- Projectile ---------------------------------------------------- */
+
+.projectile-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 280px) minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+.canvas-projectile {
+  height: 420px;
+}
+.formula-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  font-weight: 500;
+}
+
 @media (max-width: 1100px) {
+  .projectile-grid,
   .pendulum-grid {
     grid-template-columns: minmax(0, 1fr);
   }

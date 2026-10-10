@@ -10,6 +10,7 @@ import { MassSpring } from './sections/MassSpring'
 import { Pendulum } from './sections/Pendulum'
 import { PhasePlot } from './sections/PhasePlot'
 import { PositionPlot } from './sections/PositionPlot'
+import { Projectile } from './sections/Projectile'
 
 export function App() {
   const [params, setParams] = useState<Params>(defaultParams)
@@ -53,6 +54,7 @@ export function App() {
           <DampingComparison config={config} />
           <IntegratorRace config={config} />
           <Pendulum />
+          <Projectile />
         </main>
       </div>
     </div>
